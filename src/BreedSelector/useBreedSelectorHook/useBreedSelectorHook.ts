@@ -54,6 +54,11 @@ function reducer(state: State, action: Action): State {
             fsmStatus: Statuses.ERROR,
             errorMessage: action.payload
           };
+
+        case ActionTypes.BREED_BTN_CLICKED:
+          // intentionally ignore additional fetches while
+          // the existing request is in-flight.
+          return state;
       }
       break;
     case Statuses.ERROR:
