@@ -4,15 +4,27 @@ import './ButtonGrid.css';
 
 interface ButtonGridProps {
   elementList: string[];
-  totalElements: number;
   numColumns: number;
+  onElementClick: (
+    element: string,
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => void;
   perColumn: number;
+  selectedElement: string;
+  totalElements: number;
 }
 /**
  * Represents a grid of buttons.
  */
 const ButtonGrid: React.FC<ButtonGridProps> = props => {
-  const { elementList, totalElements, numColumns, perColumn } = props;
+  const {
+    elementList,
+    totalElements,
+    numColumns,
+    onElementClick,
+    perColumn,
+    selectedElement
+  } = props;
   const partialList = elementList.slice(0, totalElements);
   const columns = [];
 
@@ -22,7 +34,12 @@ const ButtonGrid: React.FC<ButtonGridProps> = props => {
         {partialList
           .slice(colIndex * perColumn, colIndex * perColumn + perColumn)
           .map(element => (
-            <Button key={element} type="button">
+            <Button
+              key={element}
+              color={element === selectedElement ? 'primary' : 'secondary'}
+              type="button"
+              onClick={e => onElementClick(element, e)}
+            >
               {element}
             </Button>
           ))}
