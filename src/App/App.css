@@ -1,0 +1,10 @@
+.loading-text {
+  display: inline-block;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .loading-text {
+    margin-left: 15px;
+  }
+}

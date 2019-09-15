@@ -33,6 +33,7 @@ const App: React.FC = () => {
         <Row>
           <Col>
             <Spinner color="primary" />
+            <h2 className="loading-text">Loading Dog Breeds...</h2>
           </Col>
         </Row>
       )}

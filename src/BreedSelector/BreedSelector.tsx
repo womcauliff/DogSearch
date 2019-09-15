@@ -16,7 +16,7 @@ interface BreedSelectorProps {
  */
 const BreedSelector: React.FC<BreedSelectorProps> = props => {
   const [state, dispatch] = useBreedSelectorHook(props.breeds);
-  const { fsmStatus, imageURLs } = state;
+  const { fsmStatus, imageURLs, selectedBreed } = state;
 
   const breedDisplayNames: string[] = props.breeds.map(
     breedObj => breedObj.displayName
@@ -38,6 +38,7 @@ const BreedSelector: React.FC<BreedSelectorProps> = props => {
         <Row>
           <Col>
             <Spinner color="primary" />
+            <h2 className="loading-text">Loading...</h2>
           </Col>
         </Row>
       )}
@@ -55,6 +56,18 @@ const BreedSelector: React.FC<BreedSelectorProps> = props => {
             >
               Try Again?
             </Button>
+          </Col>
+        </Row>
+      )}
+      {fsmStatus === Statuses.IDLE && selectedBreed !== '' && (
+        <Row>
+          <Col>
+            <h2>
+              Done!{' '}
+              <span role="img" aria-label="dog face">
+                🐶
+              </span>
+            </h2>
           </Col>
         </Row>
       )}
