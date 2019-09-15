@@ -1,0 +1,16 @@
+.btn-grid > .btn-col > .btn {
+  display: block;
+  flex-basis: 100%;
+  width: 100%;
+}
+.btn-grid > .btn-col + .btn-col,
+.btn-grid > .btn-col > .btn + .btn {
+  margin-top: 15px;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .btn-grid > .btn-col + .btn-col {
+    margin-top: 0;
+  }
+}
