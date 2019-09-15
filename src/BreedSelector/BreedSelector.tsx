@@ -1,55 +1,75 @@
-import React, { useReducer } from 'react';
+import React from 'react';
+import { Button, Card, CardImg, Col, Row, Spinner } from 'reactstrap';
+import './BreedSelector.css';
 import ButtonGrid from '../ButtonGrid';
 import { Breed } from '../App/useAppHook/getAllBreeds';
-import { ActionTypes, Status, Statuses } from './types';
-import { Action, sendBreedButtonClicked } from './actions';
+import { Statuses } from './useBreedSelectorHook/types';
+import { sendBreedButtonClicked } from './useBreedSelectorHook/actions';
+import { useBreedSelectorHook } from './useBreedSelectorHook/useBreedSelectorHook';
 
-interface State {
-  selectedBreed: string;
-  fsmStatus: Status;
-}
-const initialState: State = {
-  selectedBreed: '',
-  fsmStatus: Statuses.IDLE
-};
 interface BreedSelectorProps {
   breeds: Breed[];
 }
 
-function reducer(state: State, action: Action): State {
-  switch (state.fsmStatus) {
-    case Statuses.IDLE:
-      switch (action.type) {
-        case ActionTypes.BREED_BTN_CLICKED:
-          return { ...state, selectedBreed: action.payload };
-      }
-      break;
-  }
-  throw new Error(
-    `Action ${action.type} is not handled by ${state.fsmStatus} status`
-  );
-}
+/**
+ * Manages the user's selection of breed buttons and the corresponding images.
+ */
 const BreedSelector: React.FC<BreedSelectorProps> = props => {
-  const [state, dispatch] = useReducer<React.Reducer<State, Action>>(
-    reducer,
-    initialState
-  );
+  const [state, dispatch] = useBreedSelectorHook(props.breeds);
+  const { fsmStatus, imageURLs } = state;
+
   const breedDisplayNames: string[] = props.breeds.map(
     breedObj => breedObj.displayName
   );
 
   return (
-    <ButtonGrid
-      elementList={breedDisplayNames}
-      selectedElement={state.selectedBreed}
-      totalElements={12}
-      numColumns={4}
-      perColumn={3}
-      onElementClick={(displayName: string) => {
-        console.log(displayName);
-        dispatch(sendBreedButtonClicked(displayName));
-      }}
-    />
+    <>
+      <ButtonGrid
+        elementList={breedDisplayNames}
+        selectedElement={state.selectedBreed}
+        totalElements={12}
+        numColumns={4}
+        perColumn={3}
+        onElementClick={(displayName: string) => {
+          dispatch(sendBreedButtonClicked(displayName));
+        }}
+      />
+      {fsmStatus === Statuses.PENDING && (
+        <Row>
+          <Col>
+            <Spinner color="primary" />
+          </Col>
+        </Row>
+      )}
+      {fsmStatus === Statuses.ERROR && (
+        <Row>
+          <Col>
+            <h2>Something went wrong while loading the dogs:</h2>
+            <h3>{state.errorMessage}</h3>
+            <Button
+              color="danger"
+              type="button"
+              onClick={() =>
+                dispatch(sendBreedButtonClicked(state.selectedBreed))
+              }
+            >
+              Try Again?
+            </Button>
+          </Col>
+        </Row>
+      )}
+      {fsmStatus === Statuses.IDLE && (
+        <Row className="image-grid bg-light">
+          {imageURLs.slice(0, 51).map((imageURL, i) => (
+            <Col sm="4" key={i}>
+              <Card inverse>
+                <CardImg width="100%" src={imageURL} alt="Card image cap" />{' '}
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      )}
+    </>
   );
 };
 
