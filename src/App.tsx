@@ -18,7 +18,7 @@ const App: React.FC = () => {
       <Row>
         <Col>
           <header className="App-header">
-            <h1 className="text-primary">Dogs! {state.fsmStatus}</h1>
+            <h1 className="text-primary">Dogs!</h1>
           </header>
         </Col>
         <Col>
