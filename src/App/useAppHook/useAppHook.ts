@@ -48,7 +48,6 @@ function reducer(state: AppState, action: Action): AppState {
           };
 
         case FETCH_ERROR:
-          console.log(action.payload);
           return {
             ...state,
             fsmStatus: ERROR,
