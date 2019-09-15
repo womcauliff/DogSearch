@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
 import { getAllBreeds, parseSuccessResponse, Breed } from './getAllBreeds';
-import usePrevious from '../usePrevious';
+import usePrevious from '../../utils/usePrevious';
 import { ActionTypes, Status, Statuses } from './types';
 import { Action, sendFetchInit, sendError, sendSuccess } from './actions';
 

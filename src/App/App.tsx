@@ -1,17 +1,14 @@
 import React from 'react';
 import { Button, Col, Container, Row, Spinner } from 'reactstrap';
-import { useAppHook } from './customHooks/useAppHook/useAppHook';
-import { Statuses } from './customHooks/useAppHook/types';
-import { sendFetchInit } from './customHooks/useAppHook/actions';
+import { useAppHook } from './useAppHook/useAppHook';
+import { Statuses } from './useAppHook/types';
+import { sendFetchInit } from './useAppHook/actions';
 import './App.css';
-import ButtonGrid from './ButtonGrid/ButtonGrid';
+import BreedSelector from '../BreedSelector/BreedSelector';
 const { ERROR, IDLE, PENDING } = Statuses;
 
 const App: React.FC = () => {
   const [state, dispatch] = useAppHook();
-  const breedDisplayNames: string[] = state.breeds.map(
-    breedObj => breedObj.displayName
-  );
 
   return (
     <Container className="App">
@@ -54,14 +51,7 @@ const App: React.FC = () => {
           </Col>
         </Row>
       )}
-      {state.fsmStatus === IDLE && (
-        <ButtonGrid
-          elementList={breedDisplayNames}
-          totalElements={12}
-          numColumns={4}
-          perColumn={3}
-        />
-      )}
+      {state.fsmStatus === IDLE && <BreedSelector breeds={state.breeds} />}
     </Container>
   );
 };
