@@ -1,44 +1,92 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Dog Search
 
-## Available Scripts
+This is a single-page application to search for photos of nice doggies. 🐶
 
-In the project directory, you can run:
+Also, it provided me with the opportunity to practice working with [TypeScript + React](https://reactjs.org/docs/static-type-checking.html#typescript)!
 
-### `npm start`
+---
 
-Runs the app in the development mode.<br>
+## Specifications
+
+This application was built according to the following specifications:
+
+> Create a single-page application that allows a user to:
+>
+> - Search for a specific breed of dog and display a list of the first 12 matching results, sorted
+> alphabetically.
+>   - If the search field is empty, display a list of the first 12 breeds available, sorted alphabetically.
+>   - If the search field does not match any breeds, display a message that no breeds were found.
+>   - While the list of breeds is loading, display a message that the breeds are loading.
+> - Select one of the matching results and view pictures of that breed.
+>   - When a result is selected, mark the selection visually as being active.
+>   - While the images of the selected breed are loading, display a message that the images are loading.
+>   - Use the Dog API (https://dog.ceo/dog-api/) as your data source.
+
+---
+
+## Implementation
+
+### Finite State Machines
+
+The logic for this user interface is built using **reducers** that act explicitly as **finite state machines**. That is, the reducer uses the current state and current action to determine which is the next state it should transition, and side-effects are run *only* when transitions between certain states have occurred.
+
+Modeling the application with state machines will make easier to support extensibility in the long term, since it precisely defines when side-effects should be executed.
+
+See the following state machines as interactive visualizations:
+- [The `App` Component's state machine visualized](https://xstate.js.org/viz/?gist=464b097c1f2061d8ccde857f1fd060ce).
+- [The `BreedSelector` Component's state machine visualized](https://xstate.js.org/viz/?gist=862063fd29ac5959193d07758e32cfc9).
+
+### Sub-breed Search
+
+While not mentioned in the specification, this application supports search by sub-breed (e.g. boston bulldog, english bulldog, french bulldog).
+
+---
+
+
+## Technologies
+
+* TypeScript
+
+    The sourcecode for this application has been in [TypeScript](https://www.typescriptlang.org/), allowing for errors to be caught at build time.
+
+*  React
+
+    This application is built using React, a library for building user interfaces. In particular, this project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+    In addition, the sourcecode for this application makes use of Hooks, a new(ish) feature of React.
+    `useReducer` hooks are used to organize the logic for changes to application state, and `useEffect` is employed to retrieve API data.
+
+* Bootstrap
+
+    This application relies on [Bootstrap (v4)](https://getbootstrap.com/), an opensource CSS library.
+
+* Dog API
+
+    The [Dog API](https://github.com/ElliottLandsborough/dog-ceo-api) hosts the data and images queried by this application.
+
+---
+
+## Running the Application
+
+This application has been bootstrapped with [`create-react-app`](https://facebook.github.io/create-react-app/).
+
+To run this application in a local development environment, Node 8.10.0 or later is required.
+
+To install the application's dependencies, navigate to the the project directory in a terminal, and run the command: `npm install`
+
+### Development
+
+Once the installation is complete, you can run: `npm start`
+
+This command runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Production
 
-### `npm test`
+To view this application as it would run in a production environment, the recommended approach would be to generate a production build and use a static server (like [serve](https://github.com/zeit/serve)) to view it.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+npm run build
+npm install -g serve
+serve -s build
+```
