@@ -39,6 +39,49 @@ See the following state machines as interactive visualizations:
 - [Click here](https://xstate.js.org/viz/?gist=862063fd29ac5959193d07758e32cfc9) to interact with the `BreedSelector` Component's state machine visualization.
 ![App Component](./img/FiniteStateMachine_BreedSelectorComponent.png)
 
+### TypeScript Types
+
+One goal I had was to create Types for the various states of the Finite State Machine (FSM), as well as the Actions that cause the FSM to transition. Redux's documentation on TypeScript does [describe an approach](https://redux.js.org/recipes/usage-with-typescript) of creating Actions using string literals, which would have sufficed.
+
+However, one missing piece with this approach was a parent object that could contain references to all those string literals. This single object can make exporting less tedious and also provide helpful auto-complete:
+```
+const ALL_FSM_STATES = {
+    STATE_1: "STATE_1",
+    STATE_2: "STATE_2",
+    // ... Additional States
+};
+// Typing this below: "ALL_FSM_STATES."
+// and then prompting autocomplete would show the list of state names
+// ALL_FSM_STATES.STATE_1
+// ALL_FSM_STATES.STATE_2
+```
+
+Luckily, I eventually found a [description of a utility function](https://basarat.gitbooks.io/typescript/docs/types/literal-types.html) that accomplished this goal! So thus, this project has the following approach to Types:
+```
+/** Create parent object using utility function. */
+const Direction = strEnum(['North', 'South', 'East','West']);
+
+/** Create a Type from the parent object */
+type Direction = keyof typeof Direction;
+
+// Here, the Direction object can provide autocomplete behavior,
+// and the Direction Type can provide type-safety!
+```
+
+### User Interface Layout
+
+The UI screenshots provided by the specification show that the buttons are laid out in grid of three rows, four columns each.
+
+Additionally, I noted the data in this grid flows down each column from top-to-bottom *first*, and then wraps left-to-right.
+I have annotated the provided screenshot to better illustrate this flow of data:
+![](./img/AnnotatedGridDirection.png)
+
+I did implement the project as described in the screenshot, but personally I prefer a left-to-right layout over a zig-zag layout, since the former is a closer experience to reading text.
+
+In a team setting, I would voice my concerns and work together with the designer to make sure the interface is as intuitive as possible.
+
+
+
 ### Sub-breed Search
 
 While not mentioned in the specification, this application supports search by sub-breed (e.g. boston bulldog, english bulldog, french bulldog).
