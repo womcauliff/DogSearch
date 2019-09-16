@@ -1,5 +1,7 @@
 .btn-grid {
   margin-top: 15px;
+  max-height: 50vh;
+  overflow: scroll;
 }
 .btn-grid > .btn-col > .btn {
   display: block;
