@@ -1,3 +1,6 @@
+.btn-grid {
+  margin-top: 15px;
+}
 .btn-grid > .btn-col > .btn {
   display: block;
   flex-basis: 100%;

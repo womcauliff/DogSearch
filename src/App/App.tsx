@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { Button, Col, Container, Row, Spinner } from 'reactstrap';
+import {
+  Button,
+  Col,
+  Container,
+  Row,
+  Spinner,
+  Input,
+  InputGroup
+} from 'reactstrap';
 import { useAppHook } from './useAppHook/useAppHook';
 import { Statuses } from './useAppHook/types';
 import { sendFetchInit } from './useAppHook/actions';
@@ -17,15 +25,15 @@ const App: React.FC = () => {
 
   return (
     <Container className="App">
-      <Row>
-        <Col>
+      <Row className="header-row">
+        <Col sm={12} md={6}>
           <header className="App-header">
             <h1 className="text-primary">Dogs!</h1>
           </header>
         </Col>
-        <Col>
-          <div className="searchbar">
-            <input
+        <Col className="searchbar-col" sm={12} md={6}>
+          <InputGroup>
+            <Input
               type="text"
               name="searchbar"
               id="searchbar"
@@ -33,7 +41,7 @@ const App: React.FC = () => {
               value={searchbar}
               onChange={e => setSearchbar(e.target.value)}
             />
-          </div>
+          </InputGroup>
         </Col>
       </Row>
       {state.fsmStatus === PENDING && (

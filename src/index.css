@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.loading-text {
+  display: inline-block;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .row + .row {
+    margin-top: 15px;
+  }
+  .loading-text {
+    margin-left: 15px;
+  }
+}
