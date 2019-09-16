@@ -33,8 +33,11 @@ The logic for this user interface is built using **reducers** that act explicitl
 Modeling the application with state machines will make easier to support extensibility in the long term, since it precisely defines when side-effects should be executed.
 
 See the following state machines as interactive visualizations:
-- [The `App` Component's state machine visualized](https://xstate.js.org/viz/?gist=464b097c1f2061d8ccde857f1fd060ce).
-- [The `BreedSelector` Component's state machine visualized](https://xstate.js.org/viz/?gist=862063fd29ac5959193d07758e32cfc9).
+- [Click here](https://xstate.js.org/viz/?gist=464b097c1f2061d8ccde857f1fd060ce) to interact with the `App` Component's state machine visualization.
+![App Component](./img/FiniteStateMachine_AppComponent.png)
+
+- [Click here](https://xstate.js.org/viz/?gist=862063fd29ac5959193d07758e32cfc9) to interact with the `BreedSelector` Component's state machine visualization.
+![App Component](./img/FiniteStateMachine_BreedSelectorComponent.png)
 
 ### Sub-breed Search
 
