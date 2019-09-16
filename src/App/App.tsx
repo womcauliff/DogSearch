@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Col, Container, Row, Spinner } from 'reactstrap';
 import { useAppHook } from './useAppHook/useAppHook';
 import { Statuses } from './useAppHook/types';
@@ -9,6 +9,11 @@ const { ERROR, IDLE, PENDING } = Statuses;
 
 const App: React.FC = () => {
   const [state, dispatch] = useAppHook();
+
+  const [searchbar, setSearchbar] = useState('');
+  const filteredBreeds = state.breeds.filter(breed =>
+    breed.displayName.includes(searchbar)
+  );
 
   return (
     <Container className="App">
@@ -25,6 +30,8 @@ const App: React.FC = () => {
               name="searchbar"
               id="searchbar"
               placeholder="Search"
+              value={searchbar}
+              onChange={e => setSearchbar(e.target.value)}
             />
           </div>
         </Col>
@@ -52,7 +59,7 @@ const App: React.FC = () => {
           </Col>
         </Row>
       )}
-      {state.fsmStatus === IDLE && <BreedSelector breeds={state.breeds} />}
+      {state.fsmStatus === IDLE && <BreedSelector breeds={filteredBreeds} />}
     </Container>
   );
 };

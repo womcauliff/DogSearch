@@ -24,16 +24,24 @@ const BreedSelector: React.FC<BreedSelectorProps> = props => {
 
   return (
     <>
-      <ButtonGrid
-        elementList={breedDisplayNames}
-        selectedElement={state.selectedBreed}
-        totalElements={12}
-        numColumns={4}
-        perColumn={3}
-        onElementClick={(displayName: string) => {
-          dispatch(sendBreedButtonClicked(displayName));
-        }}
-      />
+      {props.breeds.length === 0 ? (
+        <Row>
+          <Col>
+            <h2>No Breed Matches Found.</h2>
+          </Col>
+        </Row>
+      ) : (
+        <ButtonGrid
+          elementList={breedDisplayNames}
+          selectedElement={state.selectedBreed}
+          totalElements={12}
+          numColumns={4}
+          perColumn={3}
+          onElementClick={(displayName: string) => {
+            dispatch(sendBreedButtonClicked(displayName));
+          }}
+        />
+      )}
       {fsmStatus === Statuses.PENDING && (
         <Row>
           <Col>
