@@ -13,4 +13,7 @@
   .btn-grid > .btn-col + .btn-col {
     margin-top: 0;
   }
+  .btn-grid > .btn-col > .btn {
+    min-height: 4rem;
+  }
 }
