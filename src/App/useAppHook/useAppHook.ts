@@ -55,15 +55,6 @@ function reducer(state: AppState, action: Action): AppState {
           };
       }
       break;
-    case IDLE:
-      switch (action.type) {
-        case FETCH_INIT:
-          return {
-            ...state,
-            fsmStatus: PENDING
-          };
-      }
-      break;
     case ERROR:
       switch (action.type) {
         case FETCH_INIT:
