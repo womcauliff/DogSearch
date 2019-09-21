@@ -2,6 +2,8 @@
 
 This is a single-page application to search for photos of nice doggies. 🐶
 
+<img src="./DogSearch.png" width="500">
+
 Also, it provided me with the opportunity to practice working with [TypeScript + React](https://reactjs.org/docs/static-type-checking.html#typescript)!
 
 ---
